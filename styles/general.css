@@ -1,0 +1,27 @@
+.game-intro-image {
+  display: block;
+  width: 90%;
+  height: 200px;
+  object-fit: contain;
+  margin: 40px auto;
+}
+
+nav {
+  height: auto !important;
+}
+
+h1 {
+  margin: 0;
+}
+
+a {
+  position: relative !important;
+}
+
+.container {
+  max-width: 600px;
+}
+
+.btn-large {
+  width: 100%;
+}
