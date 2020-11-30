@@ -49,62 +49,69 @@
             ><i class="material-icons">menu</i></a
           >
           <ul class="right hide-on-med-and-down">
-            <li><a href="quiz.html">Restart</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="higher-results.html">Score History</a></li>
           </ul>
         </div>
       </nav>
 
       <ul class="sidenav" id="mobile-demo">
-        <li><a href="result.html">Restart</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="higher-results.html">Score History</a></li>
       </ul>
     </header>
 
     <main>
       <section class="quiz-section container">
-        <div class="image-container">
-          <img
-            class="game-image-quiz img-result"
-            src="./assets/questions/fail.jpg"
-          />
+        <h3 class="center-align">Top 5 players</h3>
+        <table class="responsive-table  centered striped">
+          <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Score</th>
+                <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Alvin</td>
+              <td>5</td>
+              <td>22/01/2020</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Luciano</td>
+              <td>5</td>
+              <td>22/01/2020</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Alex</td>
+              <td>4</td>
+              <td>22/01/2020</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>John</td>
+              <td>3</td>
+              <td>22/01/2020</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Tim</td>
+              <td>2</td>
+              <td>22/01/2020</td>
+            </tr>
+            
+          </tbody>
+        </table>
         </div>
-
-        <div class="text-feedback-container">
-          <p class="flow-text center-align fail-message">
-            Sorry, you lost this world cup but you do not need to wait 4 years
-            to play again just hit the play again button.
-          </p>
-          <p class="flow-text center-align success-message">
-            CELEBRATE! You won the world cup quiz!
-          </p>
-        </div>
-        <div class="numbers">
-          <p class="total-correct-answers center-align">
-            <span class="total-correct-answers-number">3</span> correct answers.
-          </p>
-
-          <p class="total-wrong-answers center-align">
-            <span class="total-wrong-answers-number">2</span> wrong answers.
-          </p>
-        </div>
-        <a
-          href="index.html"
-          class="waves-effect btn-large indigo darken-4 btn link-btn"
-          >Home</a
-        >
-
-        <a
-          href="quiz.html"
-          class="waves-effect btn-large indigo darken-2 btn link-btn"
-          >Play Again</a
-        >
       </section>
     </main>
 
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/constants.js"></script>
-    <script type="text/javascript" src="js/result.js"></script>
   </body>
 </html>

@@ -51,6 +51,7 @@ body * {
 @media only screen and (min-width: 993px) {
   .link-logo {
     text-align: left;
+    width: auto;
   }
 }
 
@@ -59,5 +60,10 @@ body * {
 }
 
 .sidenav li a {
+  color: #fff;
+}
+
+table.striped > tbody > tr:nth-child(odd) {
+  background-color: #303f9f !important;
   color: #fff;
 }
