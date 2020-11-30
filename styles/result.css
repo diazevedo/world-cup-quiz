@@ -1,0 +1,23 @@
+.fail-message {
+  color: #ef5350;
+}
+
+.success-message {
+  color: #00796b;
+}
+
+.numbers {
+  font-weight: 800;
+}
+
+.total-correct-answers {
+  color: #00838f;
+}
+
+.total-wrong-answers {
+  color: #dd2c00;
+}
+
+.link-btn {
+  margin-top: 20px;
+}

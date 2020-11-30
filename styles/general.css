@@ -1,3 +1,18 @@
+html {
+  width: 100vw;
+  height: 100vh;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  background: #f5f5f5;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
 .game-intro-image {
   display: block;
   width: 90%;
@@ -6,17 +21,10 @@
   margin: 40px auto;
 }
 
-nav {
-  height: auto !important;
-}
-
-h1 {
-  margin: 0;
-}
-
-a {
-  position: relative !important;
-}
+/* .logo {
+  width: 100%;
+  text-align: center;
+} */
 
 .container {
   max-width: 600px;
@@ -24,4 +32,32 @@ a {
 
 .btn-large {
   width: 100%;
+}
+
+.link-logo {
+  width: 100%;
+  text-align: center;
+}
+
+@media only screen and (min-width: 601px) {
+  .nav-wrapper {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  .link-logo {
+    text-align: left;
+  }
+}
+
+.sidenav {
+  background: #303f9f;
+}
+
+.sidenav li a {
+  color: #fff;
 }
