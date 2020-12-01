@@ -115,10 +115,11 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log({ USER_CORRECT_ANSWERS, currentPlayer, highScores });
 
       highScores.sort(function (current, next) {
-        return current.score >= next.score;
+        return next.score - current.score;
       });
 
-      highScores = highScores.slice(1, 6);
+      const sliceArrayFrom = highScores.length > 5 ? 1 : 0;
+      highScores = highScores.slice(sliceArrayFrom, 6);
 
       localStorage.setItem("world-cup-high-scores", JSON.stringify(highScores));
       localStorage.setItem(

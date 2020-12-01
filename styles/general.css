@@ -64,6 +64,6 @@ body * {
 }
 
 table.striped > tbody > tr:nth-child(odd) {
-  background-color: #303f9f !important;
+  background-color: #00897b !important;
   color: #fff;
 }
