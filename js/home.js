@@ -24,8 +24,10 @@ $.addEventListener("DOMContentLoaded", function () {
       QUESTIONS_TO_THE_USER[0].options,
       QUESTIONS_TO_THE_USER[0].image
     );
+
     $playerNameInput.value = "";
 
     showElement($.querySelector(".quiz-section"));
+    startTimer();
   });
 });

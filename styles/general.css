@@ -35,7 +35,7 @@ body * {
 }
 
 .link-logo {
-  width: 100%;
+  width: 70%;
   text-align: center;
 }
 
@@ -77,4 +77,8 @@ table.striped > tbody > tr:nth-child(odd) {
 main,
 section {
   height: 100%;
+}
+
+.timer-paragraph {
+  color: #e65100;
 }

@@ -94,3 +94,25 @@ function setResultPage() {
   $.querySelector(".total-wrong-answers-number").textContent =
     5 - CURRENT_PLAYER.score;
 }
+
+var secondsElapsed = 0;
+var timeGiven = 5;
+var interval = 0;
+
+function startTimer() {
+  $timerEl.textContent = timeGiven;
+  var secondsElapsed = 0;
+  interval = setInterval(function () {
+    secondsElapsed++;
+    $timerEl.textContent = timeGiven - secondsElapsed;
+    if (secondsElapsed >= timeGiven) {
+      disable_form();
+      stopTimer();
+      manageQuizElementsAfterAnswer();
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(interval);
+}

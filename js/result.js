@@ -16,5 +16,6 @@ $.querySelector(".play-again-link").addEventListener("click", function (event) {
     QUESTIONS_TO_THE_USER[CURRENT_QUESTION].image
   );
 
+  startTimer();
   showElement($.querySelector(".quiz-section"));
 });

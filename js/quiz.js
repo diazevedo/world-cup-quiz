@@ -2,55 +2,18 @@ var USER_CORRECT_ANSWERS = 0;
 
 const $nextQuestionButton = $.querySelector(".form-answers-next-question");
 const $seeResultButton = $.querySelector(".form-answers-result");
-const $errorMessage = $.querySelector(".error-message");
 const $answerButton = $.querySelector(".form-answers-button");
 const $correctAnswerText = $.querySelector(".correct-answer-text");
 const $wrongAnswerText = $.querySelector(".wrong-answer-text");
 const $title = $.querySelector(".title");
 const $explanation = $.querySelector(".explanation");
+const $timerEl = $.querySelector(".timer");
 
 $answerButton.addEventListener("click", function (event) {
   event.preventDefault();
-
-  const $userAnswer = $.querySelector("input:checked");
-
-  if (!$userAnswer) {
-    $errorMessage.style.display = "block";
-    return;
-  }
-
-  if (CURRENT_QUESTION === 4) $seeResultButton.style.display = "block";
-  else $nextQuestionButton.style.display = "block";
-
-  $errorMessage.style.display = "none";
+  stopTimer();
+  manageQuizElementsAfterAnswer();
   disable_form();
-
-  const userOption = $userAnswer.value;
-
-  $.querySelector(
-    `[data-answer="${QUESTIONS_TO_THE_USER[CURRENT_QUESTION].answer}"]`
-  ).classList.add("correct");
-
-  const isAnswerCorrect =
-    userOption === QUESTIONS_TO_THE_USER[CURRENT_QUESTION].answer;
-
-  if (isAnswerCorrect) {
-    USER_CORRECT_ANSWERS++;
-
-    $correctAnswerText.style.display = "block";
-    $title.style.display = "none";
-  } else {
-    $.querySelector(`[data-answer="${userOption}"]`).classList.add("incorrect");
-
-    $wrongAnswerText.style.display = "block";
-    $title.style.display = "block";
-    $.querySelector(".correct-answer-span").textContent =
-      QUESTIONS_TO_THE_USER[CURRENT_QUESTION].answer;
-  }
-
-  $explanation.style.display = "block";
-  $.querySelector(".answer-text").textContent =
-    QUESTIONS_TO_THE_USER[CURRENT_QUESTION].explanation;
 });
 
 $nextQuestionButton.addEventListener("click", function () {
@@ -64,6 +27,7 @@ $nextQuestionButton.addEventListener("click", function () {
 
   unable_form();
   cleanQuestionPage();
+  startTimer();
 });
 
 $seeResultButton.addEventListener("click", function (event) {
@@ -126,4 +90,39 @@ function cleanQuestionPage() {
   $explanation.style.display = "none";
   $nextQuestionButton.style.display = "none";
   $seeResultButton.style.display = "none";
+  $.querySelector(".first-radio").checked = true;
+}
+
+function manageQuizElementsAfterAnswer() {
+  const $userAnswer = $.querySelector("input:checked");
+  const userOption = $userAnswer.value;
+
+  if (CURRENT_QUESTION === 4) $seeResultButton.style.display = "block";
+  else $nextQuestionButton.style.display = "block";
+
+  $.querySelector(
+    `[data-answer="${QUESTIONS_TO_THE_USER[CURRENT_QUESTION].answer}"]`
+  ).classList.add("correct");
+
+  const isAnswerCorrect =
+    userOption === QUESTIONS_TO_THE_USER[CURRENT_QUESTION].answer;
+
+  if (isAnswerCorrect) {
+    USER_CORRECT_ANSWERS++;
+
+    $correctAnswerText.style.display = "block";
+    $title.style.display = "none";
+  } else {
+    $.querySelector(`[data-answer="${userOption}"]`).classList.add("incorrect");
+
+    $wrongAnswerText.style.display = "block";
+    $title.style.display = "block";
+    $.querySelector(".correct-answer-span").textContent =
+      QUESTIONS_TO_THE_USER[CURRENT_QUESTION].answer;
+  }
+
+  $explanation.style.display = "block";
+  $.querySelector(".answer-text").textContent =
+    QUESTIONS_TO_THE_USER[CURRENT_QUESTION].explanation;
+  $.querySelector(".first-radio").checked = true;
 }
