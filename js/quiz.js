@@ -1,153 +1,89 @@
-const QUESTIONS_TO_THE_USER = QUESTIONS.sort(function () {
-  return 0.5 - Math.random();
-});
-
 var USER_CORRECT_ANSWERS = 0;
 
-document.addEventListener("DOMContentLoaded", function () {
-  var current_question = 0;
-  setQuestionAndOptions(
-    QUESTIONS_TO_THE_USER[current_question].question,
-    QUESTIONS_TO_THE_USER[current_question].options,
-    QUESTIONS_TO_THE_USER[current_question].image
-  );
+const $nextQuestionButton = $.querySelector(".form-answers-next-question");
+const $seeResultButton = $.querySelector(".form-answers-result");
+const $errorMessage = $.querySelector(".error-message");
+const $answerButton = $.querySelector(".form-answers-button");
+const $correctAnswerText = $.querySelector(".correct-answer-text");
+const $wrongAnswerText = $.querySelector(".wrong-answer-text");
+const $title = $.querySelector(".title");
+const $explanation = $.querySelector(".explanation");
 
-  const $form = document.querySelector("form");
-  $form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    const $userAnswer = document.querySelector("input:checked");
+$answerButton.addEventListener("click", function (event) {
+  event.preventDefault();
 
-    if (!$userAnswer) {
-      document.querySelector(".error-message").style.display = "block";
-      return;
-    }
+  const $userAnswer = $.querySelector("input:checked");
 
-    if (current_question === 4) {
-      document.querySelector(".form-answers-result").style.display = "block";
-    } else {
-      document.querySelector(".form-answers-next-question").style.display =
-        "block";
-    }
+  if (!$userAnswer) {
+    $errorMessage.style.display = "block";
+    return;
+  }
 
-    document.querySelector(".error-message").style.display = "none";
-    disable_form();
+  if (CURRENT_QUESTION === 4) $seeResultButton.style.display = "block";
+  else $nextQuestionButton.style.display = "block";
 
-    const $correctAnswerText = document.querySelector(".correct-answer-text");
-    const $wrongAnswerText = document.querySelector(".wrong-answer-text");
-    const userOption = $userAnswer.value;
+  $errorMessage.style.display = "none";
+  disable_form();
 
-    document
-      .querySelector(
-        `[data-answer="${QUESTIONS_TO_THE_USER[current_question].answer}"]`
-      )
-      .classList.add("correct");
+  const userOption = $userAnswer.value;
 
-    const isAnswerCorrect =
-      userOption === QUESTIONS_TO_THE_USER[current_question].answer;
+  $.querySelector(
+    `[data-answer="${QUESTIONS_TO_THE_USER[CURRENT_QUESTION].answer}"]`
+  ).classList.add("correct");
 
-    if (isAnswerCorrect) {
-      USER_CORRECT_ANSWERS++;
+  const isAnswerCorrect =
+    userOption === QUESTIONS_TO_THE_USER[CURRENT_QUESTION].answer;
 
-      $correctAnswerText.style.display = "block";
-      document.querySelector(".title").style.display = "none";
-    } else {
-      document
-        .querySelector(`[data-answer="${userOption}"]`)
-        .classList.add("incorrect");
-      $wrongAnswerText.style.display = "block";
-      document.querySelector(".title").style.display = "block";
-      document.querySelector(".correct-answer-span").textContent =
-        QUESTIONS_TO_THE_USER[current_question].answer;
-    }
+  if (isAnswerCorrect) {
+    USER_CORRECT_ANSWERS++;
 
-    document.querySelector(".explanation").style.display = "block";
-    document.querySelector(".answer-text").textContent =
-      QUESTIONS_TO_THE_USER[current_question].explanation;
-  });
+    $correctAnswerText.style.display = "block";
+    $title.style.display = "none";
+  } else {
+    $.querySelector(`[data-answer="${userOption}"]`).classList.add("incorrect");
 
-  document
-    .querySelector(".form-answers-next-question")
-    .addEventListener("click", function () {
-      current_question++;
-      setQuestionAndOptions(
-        QUESTIONS_TO_THE_USER[current_question].question,
-        QUESTIONS_TO_THE_USER[current_question].options,
-        QUESTIONS_TO_THE_USER[current_question].image
-      );
-      document.querySelector(".explanation").style.display = "none";
-      document.querySelector(".form-answers-next-question").style.display =
-        "none";
+    $wrongAnswerText.style.display = "block";
+    $title.style.display = "block";
+    $.querySelector(".correct-answer-span").textContent =
+      QUESTIONS_TO_THE_USER[CURRENT_QUESTION].answer;
+  }
 
-      unable_form();
-      const $incorrectOption = document.querySelector(".incorrect");
-      if ($incorrectOption) {
-        $incorrectOption.classList.remove("incorrect");
-      }
-
-      const $correctOption = document.querySelector(".correct");
-      if ($correctOption) {
-        console.log(document.querySelectorAll(".correct"));
-        console.log("correct", $correctOption);
-        $correctOption.classList.remove("correct");
-      }
-
-      document.querySelector("input:checked").checked = false;
-      document.querySelector(".correct-answer-text").style.display = "none";
-      document.querySelector(".wrong-answer-text").style.display = "none";
-    });
-
-  document
-    .querySelector(".form-answers-result")
-    .addEventListener("click", function (event) {
-      event.preventDefault();
-
-      var highScores = [];
-      currentPlayer = JSON.parse(
-        localStorage.getItem("world-cup-current-player")
-      );
-
-      currentPlayer.score = USER_CORRECT_ANSWERS;
-      if (localStorage.getItem("world-cup-high-scores")) {
-        highScores = JSON.parse(localStorage.getItem("world-cup-high-scores"));
-      }
-
-      highScores.push(currentPlayer);
-      console.log({ USER_CORRECT_ANSWERS, currentPlayer, highScores });
-
-      highScores.sort(function (current, next) {
-        return next.score - current.score;
-      });
-
-      const sliceArrayFrom = highScores.length > 5 ? 1 : 0;
-      highScores = highScores.slice(sliceArrayFrom, 6);
-
-      localStorage.setItem("world-cup-high-scores", JSON.stringify(highScores));
-      localStorage.setItem(
-        "world-cup-current-player",
-        JSON.stringify(currentPlayer)
-      );
-
-      window.location = "result.html";
-    });
+  $explanation.style.display = "block";
+  $.querySelector(".answer-text").textContent =
+    QUESTIONS_TO_THE_USER[CURRENT_QUESTION].explanation;
 });
 
-function setQuestionAndOptions(question, options, img) {
-  document.querySelector(".game-image-quiz").src = `../assets/questions/${img}`;
+$nextQuestionButton.addEventListener("click", function () {
+  CURRENT_QUESTION++;
 
-  const $questionElement = document.querySelector("#question");
-  const $options = document.querySelectorAll(".answer-option");
+  setQuestionAndOptions(
+    QUESTIONS_TO_THE_USER[CURRENT_QUESTION].question,
+    QUESTIONS_TO_THE_USER[CURRENT_QUESTION].options,
+    QUESTIONS_TO_THE_USER[CURRENT_QUESTION].image
+  );
 
-  $questionElement.textContent = question;
+  unable_form();
+  cleanQuestionPage();
+});
 
-  for (let i = 0; i < $options.length; i++) {
-    $options[i].setAttribute("data-answer", options[i]);
-    $options[i].querySelector("span").textContent = options[i];
-    $options[i].querySelector("input").value = options[i];
-  }
-}
+$seeResultButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  CURRENT_QUESTION = 0;
+
+  QUESTIONS_TO_THE_USER = selectQuestions();
+  CURRENT_PLAYER.score = USER_CORRECT_ANSWERS;
+  USER_CORRECT_ANSWERS = 0;
+  CURRENT_PLAYER.date = +new Date();
+  manageHighScores();
+  setResultPage();
+  hideElement($.querySelector(".quiz-section"));
+  showElement($.querySelector(".result-section"));
+  unable_form();
+  cleanQuestionPage();
+});
 
 function unable_form() {
-  const $form = document.querySelector("form");
+  const $form = $.querySelector(".form-answers");
 
   const inputs = $form.querySelectorAll(".with-gap");
   const button = $form.querySelector(".form-answers-button");
@@ -160,7 +96,7 @@ function unable_form() {
 }
 
 function disable_form() {
-  const $form = document.querySelector("form");
+  const $form = $.querySelector(".form-answers");
 
   const inputs = $form.querySelectorAll(".with-gap");
   const button = $form.querySelector(".form-answers-button");
@@ -170,4 +106,24 @@ function disable_form() {
   }
 
   button.disabled = true;
+}
+
+function cleanQuestionPage() {
+  const $incorrectOption = $.querySelector(".incorrect");
+  if ($incorrectOption) $incorrectOption.classList.remove("incorrect");
+
+  const $correctOption = $.querySelector(".correct");
+
+  if ($correctOption) $correctOption.classList.remove("correct");
+
+  if ($correctAnswerText) $correctAnswerText.style.display = "none";
+
+  $wrongAnswerText.style.display = "none";
+  $.querySelector("input:checked").checked = false;
+  $seeResultButton.style.display = "none";
+  $explanation.style.display = "none";
+
+  $explanation.style.display = "none";
+  $nextQuestionButton.style.display = "none";
+  $seeResultButton.style.display = "none";
 }

@@ -1,21 +1,21 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const currentUser = JSON.parse(
-    localStorage.getItem("world-cup-current-player")
+const $image = document.querySelector(".img-result");
+
+$.querySelector(".home-link").addEventListener("click", function (event) {
+  event.preventDefault();
+  hideElement($.querySelector(".active-page"));
+  showElement($.querySelector(".welcome-section"));
+});
+
+$.querySelector(".play-again-link").addEventListener("click", function (event) {
+  event.preventDefault();
+  hideElement($.querySelector(".active-page"));
+
+  setQuestionAndOptions(
+    QUESTIONS_TO_THE_USER[CURRENT_QUESTION].question,
+    QUESTIONS_TO_THE_USER[CURRENT_QUESTION].options,
+    QUESTIONS_TO_THE_USER[CURRENT_QUESTION].image
   );
 
-  const $image = document.querySelector(".img-result");
-
-  if (currentUser.score === 5) {
-    $image.src = "../assets/questions/passed.jpg";
-    document.querySelector(".fail-message").style.display = "none";
-    document.querySelector(".success-message").style.display = "block";
-  } else {
-    $image.src = "../assets/questions/fail.jpg";
-    document.querySelector(".fail-message").style.display = "block";
-    document.querySelector(".success-message").style.display = "none";
-  }
-  document.querySelector(".total-correct-answers-number").textContent =
-    currentUser.score;
-  document.querySelector(".total-wrong-answers-number").textContent =
-    5 - currentUser.score;
+  $.querySelector("#submit-button").click();
+  showElement($.querySelector(".quiz-section"));
 });

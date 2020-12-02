@@ -67,3 +67,9 @@ table.striped > tbody > tr:nth-child(odd) {
   background-color: #00897b !important;
   color: #fff;
 }
+
+.quiz-section,
+.result-section,
+.high-scores-section {
+  display: none;
+}

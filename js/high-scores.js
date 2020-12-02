@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const highScores = getHighScores();
-  console.log({ highScores });
+
   if (highScores.length === 0) {
     document.querySelector(".no-high-score").style.display = "block";
     document.querySelector(".score-table").style.display = "none";
@@ -35,7 +35,7 @@ function addRowsToTable(players) {
     tdScore.textContent = players[i].score;
 
     let tdDate = document.createElement("td");
-    tdDate.textContent = new Date().toLocaleDateString();
+    tdDate.textContent = new Date(players[i].date).toLocaleDateString();
 
     tr.appendChild(tdPosition);
     tr.appendChild(tdName);
