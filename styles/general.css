@@ -73,3 +73,8 @@ table.striped > tbody > tr:nth-child(odd) {
 .high-scores-section {
   display: none;
 }
+
+main,
+section {
+  height: 100%;
+}
