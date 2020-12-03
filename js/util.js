@@ -27,14 +27,26 @@ function hideElement(elem) {
   elem.classList.remove("active-page");
 }
 
+/**
+ * returns 5 question to be shown to the user
+ * @return {void}
+ */
 function selectQuestions() {
-  return QUESTIONS.sort(function () {
+  let questions = QUESTIONS.sort(function () {
     return 0.5 - Math.random();
   });
+
+  return questions.slice(0, 5);
 }
 
+/**
+ *
+ * @param {string} question question text
+ * @param {Array} options possible answers to the question
+ * @param {string} img image of the question
+ */
 function setQuestionAndOptions(question, options, img) {
-  document.querySelector(".game-image-quiz").src = `../assets/questions/${img}`;
+  $.querySelector(".game-image-quiz").src = `./assets/questions/${img}`;
 
   const $questionElement = document.querySelector("#question");
   const $options = document.querySelectorAll(".answer-option");
@@ -48,6 +60,10 @@ function setQuestionAndOptions(question, options, img) {
   }
 }
 
+/**
+ * returns the 5 highest scores
+ * @return {Array} an array of objects: [{name: 'string', score:"integer", date: 'unix_timestamp'}]
+ */
 function getHighScores() {
   var highScores = [];
 
@@ -58,10 +74,21 @@ function getHighScores() {
   return highScores;
 }
 
+/**
+ * saves the highest score to the localStorage
+ * @param {*} highScores an array of objects: [{name: 'string', score:"integer", date: 'unix_timestamp'}]
+ * @return {void}
+ */
 function saveHighScores(highScores) {
   localStorage.setItem("world-cup-high-scores", JSON.stringify(highScores));
 }
 
+/**
+ * Access the current highest scores. Adds the current player's score.
+ * sorts and manipulates if the score will be one of the top 5.
+ * Then saves it to the localStorage by calling the saveHighScores
+ * @return {void}
+ */
 function manageHighScores() {
   var highScores = getHighScores();
 
@@ -77,13 +104,16 @@ function manageHighScores() {
   saveHighScores(highScores);
 }
 
+/**
+ * manipulates the data to be shown in the result page
+ */
 function setResultPage() {
   if (CURRENT_PLAYER.score === 5) {
-    $image.src = "../assets/questions/passed.jpg";
+    $image.src = "./assets/questions/passed.jpg";
     $.querySelector(".fail-message").style.display = "none";
     document.querySelector(".success-message").style.display = "block";
   } else {
-    $image.src = "../assets/questions/fail.jpg";
+    $image.src = "./assets/questions/fail.jpg";
     $.querySelector(".fail-message").style.display = "block";
     $.querySelector(".success-message").style.display = "none";
   }
@@ -99,6 +129,10 @@ var secondsElapsed = 0;
 var timeGiven = 5;
 var interval = 0;
 
+/**
+ * starts the timer.
+ * @return {void}
+ */
 function startTimer() {
   $timerEl.textContent = timeGiven;
   var secondsElapsed = 0;
@@ -113,6 +147,10 @@ function startTimer() {
   }, 1000);
 }
 
+/**
+ * stops the timer.
+ * @return {void}
+ */
 function stopTimer() {
   clearInterval(interval);
 }

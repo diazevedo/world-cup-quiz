@@ -1,6 +1,6 @@
 $.addEventListener("DOMContentLoaded", function () {
   /** initiation of responsive menu */
-  var elems = document.querySelectorAll(".sidenav");
+  var elems = $.querySelectorAll(".sidenav");
   M.Sidenav.init(elems, {});
 
   /** handles the action in the first page. when user clicks on start button */

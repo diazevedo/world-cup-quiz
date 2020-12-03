@@ -1,11 +1,5 @@
 const $image = document.querySelector(".img-result");
 
-$.querySelector(".home-link").addEventListener("click", function (event) {
-  event.preventDefault();
-  hideElement($.querySelector(".active-page"));
-  showElement($.querySelector(".welcome-section"));
-});
-
 $.querySelector(".play-again-link").addEventListener("click", function (event) {
   event.preventDefault();
   hideElement($.querySelector(".active-page"));

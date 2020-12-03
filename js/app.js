@@ -1,8 +1,3 @@
-// M.toast({ html: "I am a toast!" });
-// $(document).ready(function () {
-//   M.updateTextFields();
-// });
-
 QUESTIONS_TO_THE_USER = selectQuestions();
 
 $.addEventListener("DOMContentLoaded", function () {
@@ -31,15 +26,26 @@ $.addEventListener("DOMContentLoaded", function () {
   for (let i = 0; i < $linksToHighScore.length; i++) {
     $linksToHighScore[i].addEventListener("click", function (event) {
       event.preventDefault();
+
+      if ($.querySelector(".active-page").classList.contains("quiz-section")) {
+        resetQuestionPage();
+      }
+
       hideElement($.querySelector(".active-page"));
       showElement($.querySelector(".high-scores-section"));
     });
   }
 
+  /** add clicks to the menu links -- to home page */
   const $linksToHome = $.querySelectorAll(".home-link");
   for (let i = 0; i < $linksToHome.length; i++) {
     $linksToHome[i].addEventListener("click", function (event) {
       event.preventDefault();
+
+      if ($.querySelector(".active-page").classList.contains("quiz-section")) {
+        resetQuestionPage();
+      }
+
       hideElement($.querySelector(".active-page"));
       showElement($.querySelector(".welcome-section"));
     });
@@ -47,7 +53,24 @@ $.addEventListener("DOMContentLoaded", function () {
 
   $.querySelector(".link-logo").addEventListener("click", function (event) {
     event.preventDefault();
+
+    /** cleaning the form if it is the active page */
+    if ($.querySelector(".active-page").classList.contains("quiz-section")) {
+      resetQuestionPage();
+    }
+
     hideElement($.querySelector(".active-page"));
     showElement($.querySelector(".welcome-section"));
   });
 });
+
+/**
+ * reset the form page after user clicks to change a page
+ */
+function resetQuestionPage() {
+  stopTimer();
+  cleanQuestionPage();
+  enable_form();
+  QUESTIONS_TO_THE_USER = selectQuestions();
+  CURRENT_QUESTION = 0;
+}

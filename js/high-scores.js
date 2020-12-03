@@ -1,40 +1,35 @@
-document.addEventListener("DOMContentLoaded", function () {
+$.addEventListener("DOMContentLoaded", function () {
   const highScores = getHighScores();
 
   if (highScores.length === 0) {
-    document.querySelector(".no-high-score").style.display = "block";
-    document.querySelector(".score-table").style.display = "none";
+    $.querySelector(".no-high-score").style.display = "block";
+    $.querySelector(".score-table").style.display = "none";
   } else {
-    document.querySelector(".no-high-score").style.display = "none";
-    document.querySelector(".score-table").style.display = "table";
+    $.querySelector(".no-high-score").style.display = "none";
+    $.querySelector(".score-table").style.display = "table";
     addRowsToTable(highScores);
   }
 });
 
-function getHighScores() {
-  var highScores = [];
-
-  if (localStorage.getItem("world-cup-high-scores")) {
-    highScores = JSON.parse(localStorage.getItem("world-cup-high-scores"));
-  }
-
-  return highScores;
-}
-
+/**
+ * Adds row to the highest scores table
+ * @param {Array} players  an array of objects: [{name: 'string', score:"integer", date: 'unix_timestamp'}]
+ * @return {void}
+ */
 function addRowsToTable(players) {
-  const $tbody = document.querySelector(".score-table tbody");
+  const $tbody = $.querySelector(".score-table tbody");
 
   for (let i = 0; i < players.length; i++) {
-    let tr = document.createElement("tr");
-    let tdPosition = document.createElement("td");
+    let tr = $.createElement("tr");
+    let tdPosition = $.createElement("td");
     tdPosition.textContent = i + 1 + "º";
-    let tdName = document.createElement("td");
+    let tdName = $.createElement("td");
     tdName.textContent = players[i].name;
 
-    let tdScore = document.createElement("td");
+    let tdScore = $.createElement("td");
     tdScore.textContent = players[i].score;
 
-    let tdDate = document.createElement("td");
+    let tdDate = $.createElement("td");
     tdDate.textContent = new Date(players[i].date).toLocaleDateString();
 
     tr.appendChild(tdPosition);

@@ -9,6 +9,9 @@ const $title = $.querySelector(".title");
 const $explanation = $.querySelector(".explanation");
 const $timerEl = $.querySelector(".timer");
 
+/**
+ * add the action when the user clicks the asnwer button
+ */
 $answerButton.addEventListener("click", function (event) {
   event.preventDefault();
   stopTimer();
@@ -16,6 +19,9 @@ $answerButton.addEventListener("click", function (event) {
   disable_form();
 });
 
+/**
+ * add the action when the user clicks the next question button
+ */
 $nextQuestionButton.addEventListener("click", function () {
   CURRENT_QUESTION++;
 
@@ -25,11 +31,14 @@ $nextQuestionButton.addEventListener("click", function () {
     QUESTIONS_TO_THE_USER[CURRENT_QUESTION].image
   );
 
-  unable_form();
+  enable_form();
   cleanQuestionPage();
   startTimer();
 });
 
+/**
+ * add the action when the user clicks the see result button
+ */
 $seeResultButton.addEventListener("click", function (event) {
   event.preventDefault();
   CURRENT_QUESTION = 0;
@@ -42,11 +51,11 @@ $seeResultButton.addEventListener("click", function (event) {
   setResultPage();
   hideElement($.querySelector(".quiz-section"));
   showElement($.querySelector(".result-section"));
-  unable_form();
+  enable_form();
   cleanQuestionPage();
 });
 
-function unable_form() {
+function enable_form() {
   const $form = $.querySelector(".form-answers");
 
   const inputs = $form.querySelectorAll(".with-gap");
@@ -59,6 +68,10 @@ function unable_form() {
   button.disabled = false;
 }
 
+/**
+ * disables the question page inputs
+ * @return {void}
+ */
 function disable_form() {
   const $form = $.querySelector(".form-answers");
 
@@ -72,6 +85,10 @@ function disable_form() {
   button.disabled = true;
 }
 
+/**
+ * manipulates all the page question, resets the page state
+ * @return {void}
+ */
 function cleanQuestionPage() {
   const $incorrectOption = $.querySelector(".incorrect");
   if ($incorrectOption) $incorrectOption.classList.remove("incorrect");
@@ -93,6 +110,10 @@ function cleanQuestionPage() {
   $.querySelector(".first-radio").checked = true;
 }
 
+/**
+ * After the user answer it will be manipulate the interface
+ * @return {void}
+ */
 function manageQuizElementsAfterAnswer() {
   const $userAnswer = $.querySelector("input:checked");
   const userOption = $userAnswer.value;
